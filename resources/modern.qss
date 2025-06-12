@@ -1,0 +1,16 @@
+/* 现代浅蓝风格，支持卡片、按钮高亮、分组标题 */
+QMainWindow { background: #f7fafd; }
+#MainTitle { color: #3498db; font-weight: bold; }
+QTabWidget::pane { border: 1px solid #3498db; background: #fafdff; }
+QTabBar::tab { background: #e6f0fa; color: #3498db; font-weight: bold; border-radius: 8px 8px 0 0; padding: 10px 24px; margin: 2px; }
+QTabBar::tab:selected { background: #3498db; color: #fff; }
+QStatusBar { background: #eaf6fb; color: #3498db; font-size: 15px; }
+
+#VarCard { background: #fff; border-radius: 14px; border: 1.5px solid #d7e8fa; margin: 6px 0; }
+#VarCardName { font-size: 18px; color: #34495e; }
+#VarCardValue { font-size: 20px; color: #2d3436; font-weight: bold; }
+QPushButton { background: #3498db; color: #fff; border: none; border-radius: 7px; padding: 8px 20px; font-size: 15px; }
+QPushButton:checked { background: #2ecc71; }
+QPushButton#ExitButton { background: #e74c3c; color: white; font-size: 16px; border-radius: 9px; padding: 10px 30px; }
+QPushButton#ExitButton:hover { background: #c0392b; }
+QLineEdit { background: #eaf6fb; border: 1.5px solid #bcdcff; border-radius: 7px; font-size: 15px; padding: 7px; color: #34495e; }

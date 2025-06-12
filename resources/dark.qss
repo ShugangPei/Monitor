@@ -1,0 +1,15 @@
+/* 暗黑工业风格 */
+QMainWindow { background: #232b3e; }
+#MainTitle { color: #00bfff; font-weight: bold; }
+QTabWidget::pane { border: 1px solid #2d425a; background: #181e29; }
+QTabBar::tab { background: #2d425a; color: #00bfff; font-weight: bold; border-radius: 8px 8px 0 0; padding: 10px 24px; margin: 2px; }
+QTabBar::tab:selected { background: #00bfff; color: #232b3e; }
+QStatusBar { background: #2d425a; color: #00bfff; font-size: 15px; }
+#VarCard { background: #181e29; border-radius: 14px; border: 1.5px solid #222e43; margin: 6px 0; }
+#VarCardName { font-size: 18px; color: #00bfff; }
+#VarCardValue { font-size: 20px; color: #ffff99; font-weight: bold; }
+QPushButton { background: #00bfff; color: #232b3e; border: none; border-radius: 7px; padding: 8px 20px; font-size: 15px; }
+QPushButton:checked { background: #2ecc71; }
+QPushButton#ExitButton { background: #e74c3c; color: white; font-size: 16px; border-radius: 9px; padding: 10px 30px; }
+QPushButton#ExitButton:hover { background: #c0392b; }
+QLineEdit { background: #2d425a; border: 1.5px solid #00bfff; border-radius: 7px; font-size: 15px; padding: 7px; color: #00ffea; }
