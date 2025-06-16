@@ -69,12 +69,12 @@ class OPCUAHandler:
                 node.set_value(Variant(int(value), VariantType.UInt16))
             return True, f"{var_name} 已设置为 {value}"
         except UaStatusCodeError as e:
-            # ---- 增强写入兼容性与用户体验 ----
+           
             if "BadWriteNotSupported" in str(e):
                 try:
                     current_value = node.get_value()
                     if var_type in ["Float", "REAL"]:
-                        # 容差1e-5
+                        
                         success = abs(float(current_value) - float(value)) < 1e-5
                     else:
                         success = current_value == value
