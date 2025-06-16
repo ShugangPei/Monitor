@@ -5,7 +5,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 
 class VariableCard(QWidget):
-    """每个PLC变量的卡片展示组件，美观易扩展"""
+    
     def __init__(self, var_name, info, main_window):
         super().__init__()
         self.var_name = var_name
