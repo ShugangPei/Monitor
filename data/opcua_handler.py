@@ -68,8 +68,26 @@ class OPCUAHandler:
             elif var_type == "UInt16":
                 node.set_value(Variant(int(value), VariantType.UInt16))
             return True, f"{var_name} 已设置为 {value}"
+        except UaStatusCodeError as e:
+            # ---- 增强写入兼容性与用户体验 ----
+            if "BadWriteNotSupported" in str(e):
+                try:
+                    current_value = node.get_value()
+                    if var_type in ["Float", "REAL"]:
+                        # 容差1e-5
+                        success = abs(float(current_value) - float(value)) < 1e-5
+                    else:
+                        success = current_value == value
+                    if success:
+                        return True, f"{var_name} 已设置为 {value}（服务端返回写入不支持，但值已变动，已自动处理）"
+                    else:
+                        return False, f"写入失败: 值未更新 (期望 {value}, 实际 {current_value})"
+                except Exception as verify_error:
+                    return False, f"写入失败: 无法验证写入结果 ({str(verify_error)})"
+            else:
+                return False, f"写入失败: {e}"
         except Exception as e:
-            return False, f"写入失败: {e}"
+            return False, f"写入错误: {e}"
 
     def disconnect(self):
         if self.client:
