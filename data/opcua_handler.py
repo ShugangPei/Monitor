@@ -1,62 +1,68 @@
-import time
+﻿import time
+from typing import Dict, Any, Tuple
+
 from opcua import Client
 from opcua.ua import UaStatusCodeError, Variant, VariantType
+
 from data.plc_variables import PLC_URL, USERNAME, PASSWORD, VARIABLES
+
 
 class OPCUAHandler:
     def __init__(self):
         self.client = None
-        self.nodes = {}
+        self.nodes: Dict[str, Any] = {}
+        self.connected = False
+        self.last_error = ""
 
-    def connect(self):
-        self.cleanup_sessions()
+    def connect(self) -> bool:
+        self.disconnect()
         self.client = Client(PLC_URL)
         self.client.set_user(USERNAME)
         self.client.set_password(PASSWORD)
         self.client.connect_timeout = 5
-        max_retries = 3
-        for attempt in range(max_retries):
+
+        for _ in range(3):
             try:
                 self.client.connect()
-                for var_name, info in VARIABLES.items():
-                    self.nodes[var_name] = self.client.get_node(info["node"])
+                self.nodes = {
+                    var_name: self.client.get_node(info["node"])
+                    for var_name, info in VARIABLES.items()
+                }
+                self.connected = True
+                self.last_error = ""
                 return True
-            except UaStatusCodeError:
+            except Exception as exc:
+                self.last_error = str(exc)
                 time.sleep(1)
-                if attempt == max_retries - 1:
-                    return False
-            except Exception:
-                return False
 
-    def cleanup_sessions(self):
-        try:
-            if self.client:
-                self.client.disconnect()
-            temp_client = Client(PLC_URL)
-            temp_client.set_user(USERNAME)
-            temp_client.set_password(PASSWORD)
-            temp_client.connect_timeout = 5
-            temp_client.connect()
-            temp_client.disconnect()
-        except Exception:
-            pass
+        self.connected = False
+        return False
 
-    def read_values(self):
-        values = {}
+    def read_values(self) -> Dict[str, Any]:
+        if not self.connected:
+            return {}
+
+        values: Dict[str, Any] = {}
         try:
             for var_name, node in self.nodes.items():
                 try:
                     values[var_name] = node.get_value()
                 except Exception:
-                    values[var_name] = "N/A"
+                    values[var_name] = None
             return values
-        except Exception:
+        except Exception as exc:
+            self.last_error = str(exc)
+            self.connected = False
             return {}
 
-    def write_value(self, var_name, value):
+    def write_value(self, var_name: str, value: Any) -> Tuple[bool, str]:
+        if var_name not in self.nodes:
+            return False, f"变量不存在: {var_name}"
+
+        node = self.nodes[var_name]
+        var_type = VARIABLES[var_name]["type"]
+
         try:
-            node = self.nodes[var_name]
-            var_type = VARIABLES[var_name]["type"]
             if var_type == "Boolean":
                 node.set_value(Variant(bool(value), VariantType.Boolean))
             elif var_type in ["Float", "REAL"]:
@@ -67,35 +73,32 @@ class OPCUAHandler:
                 node.set_value(Variant(int(value), VariantType.Int32))
             elif var_type == "UInt16":
                 node.set_value(Variant(int(value), VariantType.UInt16))
-            return True, f"{var_name} 已设置为 {value}"
-        except UaStatusCodeError as e:
-
-            if "BadWriteNotSupported" in str(e):
-                try:
-                    current_value = node.get_value()
-                    if var_type in ["Float", "REAL"]:
-                        # 容差1e-5
-                        success = abs(float(current_value) - float(value)) < 1e-5
-                    else:
-                        success = current_value == value
-                    if success:
-                        return True, f"{var_name} 已设置为 {value}（服务端返回写入不支持，但值已变动，已自动处理）"
-                    else:
-                        return False, f"写入失败: 值未更新 (期望 {value}, 实际 {current_value})"
-                except Exception as verify_error:
-                    return False, f"写入失败: 无法验证写入结果 ({str(verify_error)})"
             else:
-                return False, f"写入失败: {e}"
-        except Exception as e:
-            return False, f"写入错误: {e}"
+                node.set_value(value)
+            return True, f"{var_name} 已设置为 {value}"
+        except UaStatusCodeError as exc:
+            if "BadWriteNotSupported" in str(exc):
+                try:
+                    current = node.get_value()
+                    if var_type in ["Float", "REAL"]:
+                        ok = abs(float(current) - float(value)) < 1e-5
+                    else:
+                        ok = current == value
+                    if ok:
+                        return True, f"{var_name} 写入已生效（服务端返回不支持写入）"
+                    return False, f"写入失败，期望: {value}，实际: {current}"
+                except Exception as verify_exc:
+                    return False, f"写入失败，且无法验证结果: {verify_exc}"
+            return False, f"写入失败: {exc}"
+        except Exception as exc:
+            return False, f"写入错误: {exc}"
 
-    def disconnect(self):
-        if self.client:
+    def disconnect(self) -> None:
+        if self.client is not None:
             try:
                 self.client.disconnect()
-                self.cleanup_sessions()
             except Exception:
                 pass
-            finally:
-                self.client = None
-                self.nodes = {}
+        self.client = None
+        self.nodes = {}
+        self.connected = False

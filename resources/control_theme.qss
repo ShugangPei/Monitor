@@ -1,0 +1,158 @@
+﻿QWidget {
+    background: #0b1220;
+    color: #d8e2ff;
+    font-family: "Microsoft YaHei";
+    font-size: 13px;
+}
+
+QMainWindow {
+    background: #0b1220;
+}
+
+#NavFrame {
+    background: #121d33;
+    border-radius: 12px;
+}
+
+#NavTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: #76a6ff;
+    padding: 6px 2px 14px 2px;
+}
+
+QPushButton#NavButton {
+    background: #1a2a45;
+    border: 1px solid #2f456a;
+    border-radius: 8px;
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 14px;
+}
+
+QPushButton#NavButton:hover {
+    background: #253a5f;
+}
+
+QPushButton#NavButton:checked {
+    background: #2d4f81;
+    border: 1px solid #5d86c9;
+    font-weight: 700;
+}
+
+#RightSidebar {
+    background: #121d33;
+    border-radius: 12px;
+}
+
+#SidebarTitle {
+    font-size: 16px;
+    font-weight: 700;
+    color: #8cb3ff;
+}
+
+#SidebarBox {
+    background: #0e182b;
+    border: 1px solid #203354;
+    border-radius: 10px;
+}
+
+#SidebarBoxTitle {
+    color: #f6b56c;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+#SidebarKey {
+    color: #8ea8d9;
+}
+
+#SidebarValue {
+    color: #f5f7ff;
+    font-weight: 700;
+}
+
+#PageTitle {
+    font-size: 22px;
+    font-weight: 700;
+    color: #87adff;
+}
+
+#Panel {
+    background: #121d33;
+    border: 1px solid #21365a;
+    border-radius: 12px;
+}
+
+QTableWidget {
+    background: #0d1524;
+    border: 1px solid #2f456a;
+    gridline-color: #223556;
+}
+
+QHeaderView::section {
+    background: #1b2b48;
+    color: #d8e2ff;
+    border: 0;
+    padding: 6px;
+}
+
+QLineEdit,
+QComboBox {
+    background: #0d1524;
+    border: 1px solid #2f456a;
+    border-radius: 6px;
+    padding: 6px;
+    min-height: 22px;
+}
+
+QPushButton {
+    background: #34588f;
+    border: 1px solid #4f74ad;
+    border-radius: 6px;
+    padding: 7px 14px;
+    color: #eff4ff;
+}
+
+QPushButton:hover {
+    background: #40659f;
+}
+
+QProgressBar {
+    border: 1px solid #2f456a;
+    border-radius: 6px;
+    background: #0d1524;
+    text-align: center;
+}
+
+QProgressBar::chunk {
+    background: #31c48d;
+    border-radius: 5px;
+}
+
+#VarCard {
+    background: #0e182b;
+    border: 1px solid #223a62;
+    border-radius: 10px;
+}
+
+#VarCardName {
+    color: #a4b8e2;
+    font-size: 13px;
+}
+
+#VarCardValue {
+    color: #f4f8ff;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+#VarCardStatus {
+    color: #77dfa5;
+    font-weight: 700;
+}
+
+QStatusBar {
+    background: #101a2d;
+    border-top: 1px solid #223a62;
+}
