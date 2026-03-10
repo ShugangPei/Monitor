@@ -1,11 +1,10 @@
-﻿from PyQt5.QtCore import Qt
+﻿from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QHBoxLayout,
     QLabel,
     QComboBox,
-    QLineEdit,
     QTableWidget,
     QTableWidgetItem,
 )
@@ -30,13 +29,7 @@ class LogPage(QWidget):
         self.level_filter.addItems(["全部", "INFO", "WARNING", "ERROR"])
         self.level_filter.currentTextChanged.connect(self.refresh)
         filter_row.addWidget(self.level_filter)
-
-        filter_row.addWidget(QLabel("检索"))
-        self.search = QLineEdit()
-        self.search.setPlaceholderText("输入关键字")
-        self.search.textChanged.connect(self.refresh)
-        filter_row.addWidget(self.search, 1)
-
+        filter_row.addStretch(1)
         root.addLayout(filter_row)
 
         self.table = QTableWidget(0, 4)
@@ -55,13 +48,10 @@ class LogPage(QWidget):
 
     def refresh(self):
         level = self.level_filter.currentText()
-        keyword = self.search.text().strip().lower()
 
         rows = []
         for item in self.logs:
             if level != "全部" and item.level != level:
-                continue
-            if keyword and keyword not in item.message.lower() and keyword not in item.source.lower():
                 continue
             rows.append(item)
 
@@ -74,7 +64,7 @@ class LogPage(QWidget):
 
             if item.level == "ERROR":
                 for c in range(4):
-                    self.table.item(r, c).setForeground(Qt.red)
+                    self.table.item(r, c).setForeground(QColor("#b42318"))
             elif item.level == "WARNING":
                 for c in range(4):
-                    self.table.item(r, c).setForeground(Qt.yellow)
+                    self.table.item(r, c).setForeground(QColor("#9a6700"))

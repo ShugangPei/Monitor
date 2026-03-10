@@ -1,4 +1,4 @@
-﻿from PyQt5.QtCore import Qt
+﻿from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout,
@@ -55,8 +55,9 @@ class AlarmPage(QWidget):
             self.table.setItem(r, 2, QTableWidgetItem(item.message))
             self.table.setItem(r, 3, QTableWidgetItem("活动" if item.active else "已清除"))
             self.table.setItem(r, 4, QTableWidgetItem("已确认" if item.acknowledged else "未确认"))
+            color = QColor("#b42318") if item.level == "ERROR" else QColor("#9a6700")
             for c in range(5):
-                self.table.item(r, c).setForeground(Qt.red if item.level == "ERROR" else Qt.yellow)
+                self.table.item(r, c).setForeground(color)
 
     def ack_all(self):
         for alarm in self.alarms.values():

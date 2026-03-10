@@ -1,158 +1,166 @@
 ﻿QWidget {
-    background: #0b1220;
-    color: #d8e2ff;
+    background: #eef3f9;
+    color: #22364f;
     font-family: "Microsoft YaHei";
     font-size: 13px;
 }
 
 QMainWindow {
-    background: #0b1220;
+    background: #eef3f9;
 }
 
 #NavFrame {
-    background: #121d33;
+    background: #e4ebf5;
+    border: 1px solid #c5d4e8;
     border-radius: 12px;
 }
 
 #NavTitle {
     font-size: 24px;
     font-weight: 700;
-    color: #76a6ff;
+    color: #2e5f93;
     padding: 6px 2px 14px 2px;
 }
 
 QPushButton#NavButton {
-    background: #1a2a45;
-    border: 1px solid #2f456a;
+    background: #f7fafc;
+    border: 1px solid #bed0e6;
     border-radius: 8px;
     text-align: left;
     padding: 10px 14px;
     font-size: 14px;
+    color: #27415f;
 }
 
 QPushButton#NavButton:hover {
-    background: #253a5f;
+    background: #edf4fd;
 }
 
 QPushButton#NavButton:checked {
-    background: #2d4f81;
-    border: 1px solid #5d86c9;
+    background: #dce9f8;
+    border: 1px solid #6f9fd2;
+    color: #1f4f80;
     font-weight: 700;
 }
 
 #RightSidebar {
-    background: #121d33;
+    background: #e8f0fa;
+    border: 1px solid #c3d5ea;
     border-radius: 12px;
 }
 
 #SidebarTitle {
     font-size: 16px;
     font-weight: 700;
-    color: #8cb3ff;
+    color: #2e5f93;
 }
 
 #SidebarBox {
-    background: #0e182b;
-    border: 1px solid #203354;
+    background: #f8fbff;
+    border: 1px solid #c7d8ea;
     border-radius: 10px;
 }
 
 #SidebarBoxTitle {
-    color: #f6b56c;
+    color: #7a5a2b;
     font-size: 14px;
     font-weight: 700;
 }
 
 #SidebarKey {
-    color: #8ea8d9;
+    color: #5a7392;
 }
 
 #SidebarValue {
-    color: #f5f7ff;
+    color: #1f3855;
     font-weight: 700;
 }
 
 #PageTitle {
     font-size: 22px;
     font-weight: 700;
-    color: #87adff;
+    color: #2f5f92;
 }
 
 #Panel {
-    background: #121d33;
-    border: 1px solid #21365a;
+    background: #f7fbff;
+    border: 1px solid #c7d7ea;
     border-radius: 12px;
 }
 
 QTableWidget {
-    background: #0d1524;
-    border: 1px solid #2f456a;
-    gridline-color: #223556;
+    background: #ffffff;
+    border: 1px solid #c5d5e8;
+    gridline-color: #d6e2f0;
+    color: #1f3855;
 }
 
 QHeaderView::section {
-    background: #1b2b48;
-    color: #d8e2ff;
+    background: #e6eef8;
+    color: #294766;
     border: 0;
     padding: 6px;
 }
 
 QLineEdit,
 QComboBox {
-    background: #0d1524;
-    border: 1px solid #2f456a;
+    background: #ffffff;
+    border: 1px solid #c2d3e7;
     border-radius: 6px;
     padding: 6px;
     min-height: 22px;
+    color: #1f3855;
 }
 
 QPushButton {
-    background: #34588f;
-    border: 1px solid #4f74ad;
+    background: #4f7fb0;
+    border: 1px solid #3e6f9f;
     border-radius: 6px;
     padding: 7px 14px;
-    color: #eff4ff;
+    color: #ffffff;
 }
 
 QPushButton:hover {
-    background: #40659f;
+    background: #5a8ab9;
 }
 
 QProgressBar {
-    border: 1px solid #2f456a;
+    border: 1px solid #bed0e6;
     border-radius: 6px;
-    background: #0d1524;
+    background: #edf3fb;
+    color: #27415f;
     text-align: center;
 }
 
 QProgressBar::chunk {
-    background: #31c48d;
+    background: #3ba67f;
     border-radius: 5px;
 }
 
 #VarCard {
-    background: #0e182b;
-    border: 1px solid #223a62;
+    background: #ffffff;
+    border: 1px solid #c9d9ea;
     border-radius: 10px;
 }
 
 #VarCardName {
-    color: #a4b8e2;
+    color: #4c6684;
     font-size: 13px;
 }
 
 #VarCardValue {
-    color: #f4f8ff;
+    color: #1d3b5a;
     font-size: 14px;
     font-weight: 700;
 }
 
 #VarCardStatus {
-    color: #77dfa5;
+    color: #2f8a65;
     font-weight: 700;
 }
 
 QStatusBar {
-    background: #101a2d;
-    border-top: 1px solid #223a62;
+    background: #e2ebf7;
+    color: #27415f;
+    border-top: 1px solid #bfd1e7;
 }
